@@ -1,5 +1,8 @@
 package effectivejava.chapter4.item18;
-import java.util.*;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 // Broken - Inappropriate use of inheritance! (Page 87)
 public class InstrumentedHashSet<E> extends HashSet<E> {
@@ -13,23 +16,25 @@ public class InstrumentedHashSet<E> extends HashSet<E> {
         super(initCap, loadFactor);
     }
 
-    @Override public boolean add(E e) {
+    public static void main(String[] args) {
+        InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
+        s.addAll(List.of("Snap", "Crackle", "Pop"));
+        System.out.println(s.getAddCount());
+    }
+
+    @Override
+    public boolean add(E e) {
         addCount++;
         return super.add(e);
     }
 
-    @Override public boolean addAll(Collection<? extends E> c) {
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
         addCount += c.size();
         return super.addAll(c);
     }
 
     public int getAddCount() {
         return addCount;
-    }
-
-    public static void main(String[] args) {
-        InstrumentedHashSet<String> s = new InstrumentedHashSet<>();
-        s.addAll(List.of("Snap", "Crackle", "Pop"));
-        System.out.println(s.getAddCount());
     }
 }

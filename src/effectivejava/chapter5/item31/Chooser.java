@@ -14,10 +14,6 @@ public class Chooser<T> {
         choiceList = new ArrayList<>(choices);
     }
 
-    public T choose() {
-        return choiceList.get(rnd.nextInt(choiceList.size()));
-    }
-
     public static void main(String[] args) {
         List<Integer> intList = List.of(1, 2, 3, 4, 5, 6);
         Chooser<Number> chooser = new Chooser<>(intList);
@@ -25,5 +21,9 @@ public class Chooser<T> {
             Number choice = chooser.choose();
             System.out.println(choice);
         }
+    }
+
+    public T choose() {
+        return choiceList.get(rnd.nextInt(choiceList.size()));
     }
 }

@@ -1,16 +1,26 @@
 package effectivejava.chapter5.item29.technqiue2;
 
-import java.util.Arrays;
 import effectivejava.chapter5.item29.EmptyStackException;
+
+import java.util.Arrays;
 
 // Generic stack using Object[] (Pages 130-3)
 public class Stack<E> {
+    private static final int DEFAULT_INITIAL_CAPACITY = 16;
     private Object[] elements;
     private int size = 0;
-    private static final int DEFAULT_INITIAL_CAPACITY = 16;
-    
+
     public Stack() {
         elements = new Object[DEFAULT_INITIAL_CAPACITY];
+    }
+
+    // Little program to exercise our generic Stack
+    public static void main(String[] args) {
+        Stack<String> stack = new Stack<>();
+        for (String arg : args)
+            stack.push(arg);
+        while (!stack.isEmpty())
+            System.out.println(stack.pop().toUpperCase());
     }
 
     public void push(E e) {
@@ -38,14 +48,5 @@ public class Stack<E> {
     private void ensureCapacity() {
         if (elements.length == size)
             elements = Arrays.copyOf(elements, 2 * size + 1);
-    }
-
-    // Little program to exercise our generic Stack
-    public static void main(String[] args) {
-        Stack<String> stack = new Stack<>();
-        for (String arg : args)
-            stack.push(arg);
-        while (!stack.isEmpty())
-            System.out.println(stack.pop().toUpperCase());
     }
 }

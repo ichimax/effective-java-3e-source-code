@@ -1,5 +1,7 @@
 package effectivejava.chapter6.item38;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 // Emulated extensible enum (Pages 176-9)
 public enum ExtendedOperation implements Operation {
@@ -14,11 +16,16 @@ public enum ExtendedOperation implements Operation {
         }
     };
     private final String symbol;
+
     ExtendedOperation(String symbol) {
         this.symbol = symbol;
     }
-    @Override public String toString() {
-        return symbol;
+
+    // Using a collection instance to represent a collection of extended enums (page 178)
+    public static void main(String[] args) {
+        double x = Double.parseDouble(args[0]);
+        double y = Double.parseDouble(args[1]);
+        test(Arrays.asList(ExtendedOperation.values()), x, y);
     }
 
 //    // Using an enum class object to represent a collection of extended enums (page 178)
@@ -34,16 +41,15 @@ public enum ExtendedOperation implements Operation {
 //                    x, op, y, op.apply(x, y));
 //    }
 
-    // Using a collection instance to represent a collection of extended enums (page 178)
-    public static void main(String[] args) {
-        double x = Double.parseDouble(args[0]);
-        double y = Double.parseDouble(args[1]);
-        test(Arrays.asList(ExtendedOperation.values()), x, y);
-    }
     private static void test(Collection<? extends Operation> opSet,
                              double x, double y) {
         for (Operation op : opSet)
             System.out.printf("%f %s %f = %f%n",
                     x, op, y, op.apply(x, y));
+    }
+
+    @Override
+    public String toString() {
+        return symbol;
     }
 }
